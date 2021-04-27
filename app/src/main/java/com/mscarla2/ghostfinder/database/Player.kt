@@ -4,32 +4,32 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "character_table")
-data class Character(
+@Entity(tableName = "player_table")
+data class Player(
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "character_id")
+    @ColumnInfo(name = "player_id")
     var id: Long = 0L,
 
-    @ColumnInfo(name = "character_name")
+    @ColumnInfo(name = "player_name")
     var name: String = "",
 
-    @ColumnInfo(name = "character_level")
+    @ColumnInfo(name = "player_level")
     var level: Int = 0,
 
-    @ColumnInfo(name = "character_sword")
+    @ColumnInfo(name = "player_sword")
     var sword: String = "",
 
-    @ColumnInfo(name = "character_hp")
+    @ColumnInfo(name = "player_hp")
     var hp: String = "",
 
-    @ColumnInfo(name = "character_pow")
+    @ColumnInfo(name = "player_pow")
     var pow: String = "",
 
-    @ColumnInfo(name = "character_def")
+    @ColumnInfo(name = "player_def")
     var def: String = "",
 
-    @ColumnInfo(name = "character_agi")
+    @ColumnInfo(name = "player_agi")
     var agi: String = "",
 
 

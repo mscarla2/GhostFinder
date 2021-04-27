@@ -3,16 +3,17 @@ package com.mscarla2.ghostfinder.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.mscarla2.ghostfinder.database.Player
 import com.mscarla2.ghostfinder.databinding.RecyclerviewItemBinding
 
 
 class CharacterAdapter: RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
-    private var characters: List<Character> = emptyList()
-    private var selectedCharPos: Int = Int.MAX_VALUE
+    private var players: List<Player> = emptyList()
+    private var selectedPlayerPos: Int = Int.MAX_VALUE
     class CharacterViewHolder(private val binding: RecyclerviewItemBinding) : RecyclerView.ViewHolder(binding.root){
-        private lateinit var character: Character
-        fun bind(character: Character){
-            this.character = character
+        private lateinit var player: Player
+        fun bind(player: Player){
+            this.player = player
             binding.apply{
 //
             }
@@ -20,31 +21,31 @@ class CharacterAdapter: RecyclerView.Adapter<CharacterAdapter.CharacterViewHolde
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        holder.bind(characters[position])
+        holder.bind(players[position])
         holder.itemView.setOnClickListener {
-            selectedCharPos = holder.adapterPosition
+            selectedPlayerPos = holder.adapterPosition
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CharacterViewHolder(
         RecyclerviewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
-    override fun getItemCount() = characters.size
+    override fun getItemCount() = players.size
 
-    fun updateCharacter(newCharacters: List<Character>) {
-        this.characters = newCharacters
+    fun updatePlayer(newPlayers: List<Player>) {
+        this.players = newPlayers
         notifyDataSetChanged()
     }
 
-    fun getCharacterAtPosition(position: Int): Character {
-        return characters[position]
+    fun getPlayerrAtPosition(position: Int): Player {
+        return players[position]
     }
-    fun getSelectedCharacter(): Character? {
-        if (characters.size <= selectedCharPos){
+    fun getSelectedPlayer(): Player? {
+        if (players.size <= selectedPlayerPos){
             return null
         }
         else{
-            return characters[selectedCharPos]
+            return players[selectedPlayerPos]
         }
     }
 }
