@@ -15,7 +15,8 @@ class CharacterAdapter: RecyclerView.Adapter<CharacterAdapter.CharacterViewHolde
         fun bind(player: Player){
             this.player = player
             binding.apply{
-//
+                levelTextview.text = player.level.toString()
+                nameTextview.text = player.name
             }
         }
     }
@@ -32,12 +33,12 @@ class CharacterAdapter: RecyclerView.Adapter<CharacterAdapter.CharacterViewHolde
 
     override fun getItemCount() = players.size
 
-    fun updatePlayer(newPlayers: List<Player>) {
+    fun updatePlayers(newPlayers: List<Player>) {
         this.players = newPlayers
         notifyDataSetChanged()
     }
 
-    fun getPlayerrAtPosition(position: Int): Player {
+    fun getPlayerAtPosition(position: Int): Player {
         return players[position]
     }
     fun getSelectedPlayer(): Player? {

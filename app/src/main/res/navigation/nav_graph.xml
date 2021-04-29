@@ -49,6 +49,9 @@
         <action
             android:id="@+id/action_characterFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
+        <action
+            android:id="@+id/action_characterFragment_to_dataEntryFragment"
+            app:destination="@id/dataEntryFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
@@ -57,6 +60,15 @@
         tools:layout="@layout/fragment_game" >
         <action
             android:id="@+id/action_gameFragment_to_characterFragment"
+            app:destination="@id/characterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dataEntryFragment"
+        android:name="com.mscarla2.ghostfinder.fragments.DataEntryFragment"
+        android:label="fragment_data_entry"
+        tools:layout="@layout/fragment_data_entry" >
+        <action
+            android:id="@+id/action_dataEntryFragment_to_characterFragment"
             app:destination="@id/characterFragment" />
     </fragment>
 </navigation>

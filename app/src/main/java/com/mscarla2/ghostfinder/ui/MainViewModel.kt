@@ -12,7 +12,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private val playerRepository = PlayerRepository.get()
-    val player = playerRepository.getAllPlayers()
+    val players = playerRepository.getAllPlayers()
 
     fun insert(player: Player) {
         playerRepository.insert(player)

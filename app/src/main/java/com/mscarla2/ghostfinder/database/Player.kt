@@ -30,7 +30,5 @@ data class Player(
     var def: String = "",
 
     @ColumnInfo(name = "player_agi")
-    var agi: String = "",
-
-
+    var agi: String = ""
     )
