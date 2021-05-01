@@ -21,4 +21,6 @@ interface PlayerDao {
     @Query("SELECT * FROM player_table ORDER BY player_id DESC")
     fun getAllPlayers(): LiveData<List<Player>>
 
+    @Query("SELECT * FROM player_table WHERE player_id = :id ")
+    fun getPlayer(id: Long): Player
 }

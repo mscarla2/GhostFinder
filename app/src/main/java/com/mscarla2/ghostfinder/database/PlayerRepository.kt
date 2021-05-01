@@ -18,12 +18,12 @@ class PlayerRepository private constructor(context: Context) {
 
     fun getAllPlayers(): LiveData<List<Player>> = playerDao.getAllPlayers()
 
+    fun getPlayer(id: Long): Player = playerDao.getPlayer(id)
     fun insert(player: Player) {
         executor.execute {
             playerDao.insert(player)
         }
     }
-
     fun deletePlayer(player: Player) {
         executor.execute {
             playerDao.deletePlayer(player)

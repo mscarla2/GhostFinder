@@ -14,4 +14,6 @@
     <string name="insufficient_skillpoint">Insufficient Skill Points!</string>
     <string name="insufficient_resource">%s cannot be lower!</string>
     <string name="total_points">Total points:</string>
+    <string name="level_semi">Level:</string>
+    <string name="attack">Attack</string>
 </resources>

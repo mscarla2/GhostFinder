@@ -21,4 +21,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun deletePlayer(player: Player) {
         playerRepository.deletePlayer(player)
     }
+    fun getPlayer(id: Long){
+        playerRepository.getPlayer(id)
+    }
 }

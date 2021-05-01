@@ -49,4 +49,7 @@ class CharacterAdapter: RecyclerView.Adapter<CharacterAdapter.CharacterViewHolde
             return players[selectedPlayerPos]
         }
     }
+    fun getSelectedPlayerPos(): Int {
+        return selectedPlayerPos
+    }
 }

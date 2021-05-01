@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
@@ -59,8 +62,13 @@
         android:label="fragment_game"
         tools:layout="@layout/fragment_game" >
         <action
+            android:id="@+id/action_gameFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
             android:id="@+id/action_gameFragment_to_characterFragment"
             app:destination="@id/characterFragment" />
+        <argument android:name="player"
+            app:argType="string[]" />
     </fragment>
     <fragment
         android:id="@+id/dataEntryFragment"

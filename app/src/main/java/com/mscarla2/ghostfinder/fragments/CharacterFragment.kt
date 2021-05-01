@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mscarla2.ghostfinder.R
@@ -48,13 +49,23 @@ class CharacterFragment : Fragment() {
             }
             gameButton.setOnClickListener {
                 selectedPlayer = playerAdapter.getSelectedPlayer()
+                var player = arrayOf(
+                    selectedPlayer!!.name,
+                    selectedPlayer!!.pow,
+                    selectedPlayer!!.agi,
+                    selectedPlayer!!.def,
+                    selectedPlayer!!.name,
+                    selectedPlayer!!.sword)
+
                 if (selectedPlayer == null){
                     //TODO: Make R id
                     context?.toast("Select a player to play")
                 }
                 else {
-                    //TODO: Player must be sent through
-                    findNavController().navigate(R.id.action_characterFragment_to_gameFragment)
+                    val player = CharacterFragmentDirections.actionCharacterFragmentToGameFragment(
+                        player
+                    )
+                    Navigation.findNavController(it).navigate(player)
                 }
             }
             playerRecyclerview.run {
@@ -84,11 +95,12 @@ class CharacterFragment : Fragment() {
         val builder = AlertDialog.Builder(context)
         with(builder) {
             builder.setCancelable(false)
-            setTitle("Alert")
+            setTitle("Warning")
             setMessage(msg)
             setIcon(R.drawable.ic_baseline_notifications_active_24)
             setPositiveButton(R.string.ok) { _, _ ->
                 sharedViewModel.deletePlayer(player)
+                context?.toast("Player has been deleted")
             }
             setNegativeButton(R.string.cancel) { _, _ ->
                 playerAdapter.notifyDataSetChanged()
