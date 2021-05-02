@@ -21,14 +21,14 @@ data class Player(
     var sword: String = "",
 
     @ColumnInfo(name = "player_hp")
-    var hp: String = "",
+    var hp: Int = 0,
 
     @ColumnInfo(name = "player_pow")
-    var pow: String = "",
+    var pow: Int = 0,
 
     @ColumnInfo(name = "player_def")
-    var def: String = "",
+    var def: Int = 0,
 
     @ColumnInfo(name = "player_agi")
-    var agi: String = ""
+    var agi: Int = 0
     )

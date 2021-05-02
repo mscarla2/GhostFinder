@@ -18,6 +18,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         playerRepository.insert(player)
     }
 
+    fun update(player: Player){
+        playerRepository.update(player)
+    }
     fun deletePlayer(player: Player) {
         playerRepository.deletePlayer(player)
     }

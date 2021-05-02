@@ -17,6 +17,7 @@ import com.mscarla2.ghostfinder.database.Player
 import com.mscarla2.ghostfinder.databinding.FragmentCharacterBinding
 import com.mscarla2.ghostfinder.ui.CharacterAdapter
 import com.mscarla2.ghostfinder.ui.MainViewModel
+import java.lang.Long.MAX_VALUE
 
 
 class CharacterFragment : Fragment() {
@@ -24,7 +25,7 @@ class CharacterFragment : Fragment() {
     private var binding: FragmentCharacterBinding? = null
     private val playerAdapter = CharacterAdapter()
     private var selectedPlayer : Player? = null
-
+    private var prevPlayer: Player? = Player()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         val bindingMain = FragmentCharacterBinding.inflate(inflater, container, false)
@@ -49,23 +50,24 @@ class CharacterFragment : Fragment() {
             }
             gameButton.setOnClickListener {
                 selectedPlayer = playerAdapter.getSelectedPlayer()
-                var player = arrayOf(
-                    selectedPlayer!!.name,
-                    selectedPlayer!!.pow,
-                    selectedPlayer!!.agi,
-                    selectedPlayer!!.def,
-                    selectedPlayer!!.name,
-                    selectedPlayer!!.sword)
 
                 if (selectedPlayer == null){
                     //TODO: Make R id
                     context?.toast("Select a player to play")
                 }
                 else {
-                    val player = CharacterFragmentDirections.actionCharacterFragmentToGameFragment(
+                    var player: Array<String> = arrayOf(
+                        selectedPlayer!!.id.toString(),
+                        selectedPlayer!!.name,
+                        selectedPlayer!!.level.toString(),
+                        selectedPlayer!!.pow.toString(),
+                        selectedPlayer!!.agi.toString(),
+                        selectedPlayer!!.def.toString(),
+                        selectedPlayer!!.sword)
+                    val playerInfo = CharacterFragmentDirections.actionCharacterFragmentToGameFragment(
                         player
                     )
-                    Navigation.findNavController(it).navigate(player)
+                    Navigation.findNavController(it).navigate(playerInfo)
                 }
             }
             playerRecyclerview.run {
@@ -79,6 +81,23 @@ class CharacterFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        arguments?.let { args ->
+            if(requireArguments().isEmpty){
+                prevPlayer = null
+            }
+            else{
+                val safeArgs = CharacterFragmentArgs.fromBundle(args)
+                prevPlayer!!.id = safeArgs.playedPlayer[0].toLong()
+                prevPlayer!!.name = safeArgs.playedPlayer[1]
+                prevPlayer!!.level = safeArgs.playedPlayer[2].toInt()
+                prevPlayer!!.pow = safeArgs.playedPlayer[3].toInt()
+                prevPlayer!!.agi = safeArgs.playedPlayer[4].toInt()
+                prevPlayer!!.def = safeArgs.playedPlayer[5].toInt()
+                prevPlayer!!.sword = safeArgs.playedPlayer[6]
+                sharedViewModel.update(prevPlayer!!)
+
+            }
+        }
         sharedViewModel.players.observe(viewLifecycleOwner, {
             playerAdapter.updatePlayers(it)
         })

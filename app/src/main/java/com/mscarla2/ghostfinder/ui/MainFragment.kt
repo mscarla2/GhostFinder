@@ -31,7 +31,7 @@ class MainFragment : Fragment() {
             settingsButton.setOnClickListener {
                 findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
             }
-            playerButton.setOnClickListener {
+            toMenuButton.setOnClickListener {
                 findNavController().navigate(R.id.action_mainFragment_to_characterFragment)
             }
 

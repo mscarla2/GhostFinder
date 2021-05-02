@@ -107,9 +107,9 @@ class DataEntryFragment : Fragment() {
             saveButton.setOnClickListener {
                 val player = Player()
                 player.name = editName.text.toString()
-                player.pow = powNum.toString()
-                player.def = defNum.toString()
-                player.agi = agiNum.toString()
+                player.pow = powNum
+                player.def = defNum
+                player.agi = agiNum
                 sharedViewModel.insert(player)
                 val msg = resources.getString(R.string.player_added_alert, "${player.name}")
                 val builder = AlertDialog.Builder(context)

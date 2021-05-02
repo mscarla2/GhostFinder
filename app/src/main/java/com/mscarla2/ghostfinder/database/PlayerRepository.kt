@@ -29,6 +29,11 @@ class PlayerRepository private constructor(context: Context) {
             playerDao.deletePlayer(player)
         }
     }
+    fun update(player: Player){
+        executor.execute {
+            playerDao.update(player)
+        }
+    }
 
     companion object {
         private var INSTANCE: PlayerRepository? = null
