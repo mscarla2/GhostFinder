@@ -60,6 +60,7 @@ class CharacterFragment : Fragment() {
                         selectedPlayer!!.id.toString(),
                         selectedPlayer!!.name,
                         selectedPlayer!!.level.toString(),
+                        selectedPlayer!!.hp.toString(),
                         selectedPlayer!!.pow.toString(),
                         selectedPlayer!!.agi.toString(),
                         selectedPlayer!!.def.toString(),

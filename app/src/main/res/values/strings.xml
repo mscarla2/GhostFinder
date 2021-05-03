@@ -14,7 +14,14 @@
     <string name="insufficient_skillpoint">Insufficient Skill Points!</string>
     <string name="insufficient_resource">%s cannot be lower!</string>
     <string name="total_points">Total points:</string>
-    <string name="level_semi">Level:</string>
+    <string name="level_semi">Level: </string>
     <string name="attack">Attack</string>
     <string name="main_menu">main menu</string>
+    <string name="move_to_next_stage">Move to next stage</string>
+    <string name="flee">Flee</string>
+    <string name="name">Name: </string>
+    <string name="health">Health: </string>
+    <string name="pow">POW: </string>
+    <string name="agi">AGI: </string>
+    <string name="def">DEF: </string>
 </resources>
