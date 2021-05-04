@@ -24,4 +24,10 @@
     <string name="pow">POW: </string>
     <string name="agi">AGI: </string>
     <string name="def">DEF: </string>
+    <string name="upgrade_your_stats">Upgrade your stats!</string>
+    <string name="back">Back</string>
+    <string name="game_over">GAME OVER</string>
+    <string name="press_back_to_menu_to_restart_the_game">Press back to menu to restart the game</string>
+    <string name="level_up">Level Up!</string>
+    <string name="warning_player_will_be_deleted">Warning: Player will be deleted!</string>
 </resources>

@@ -15,13 +15,13 @@ data class Player(
     var name: String = "",
 
     @ColumnInfo(name = "player_level")
-    var level: Int = 0,
+    var level: Int = 1,
 
     @ColumnInfo(name = "player_sword")
     var sword: String = "",
 
     @ColumnInfo(name = "player_hp")
-    var hp: Int = 0,
+    var hp: Int = 15,
 
     @ColumnInfo(name = "player_pow")
     var pow: Int = 0,

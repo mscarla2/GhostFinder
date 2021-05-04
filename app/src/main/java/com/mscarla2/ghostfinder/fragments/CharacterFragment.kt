@@ -91,10 +91,11 @@ class CharacterFragment : Fragment() {
                 prevPlayer!!.id = safeArgs.playedPlayer[0].toLong()
                 prevPlayer!!.name = safeArgs.playedPlayer[1]
                 prevPlayer!!.level = safeArgs.playedPlayer[2].toInt()
-                prevPlayer!!.pow = safeArgs.playedPlayer[3].toInt()
-                prevPlayer!!.agi = safeArgs.playedPlayer[4].toInt()
-                prevPlayer!!.def = safeArgs.playedPlayer[5].toInt()
-                prevPlayer!!.sword = safeArgs.playedPlayer[6]
+                prevPlayer!!.hp = safeArgs.playedPlayer[3].toInt()
+                prevPlayer!!.pow = safeArgs.playedPlayer[4].toInt()
+                prevPlayer!!.agi = safeArgs.playedPlayer[5].toInt()
+                prevPlayer!!.def = safeArgs.playedPlayer[6].toInt()
+                prevPlayer!!.sword = safeArgs.playedPlayer[7]
                 sharedViewModel.update(prevPlayer!!)
 
             }

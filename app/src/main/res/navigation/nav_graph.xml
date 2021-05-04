@@ -74,6 +74,9 @@
             android:id="@+id/action_gameFragment_to_characterFragment"
             app:destination="@id/characterFragment" >
         </action>
+        <action
+            android:id="@+id/action_gameFragment_to_levelUpFragment"
+            app:destination="@id/levelUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/dataEntryFragment"
@@ -84,5 +87,17 @@
             android:id="@+id/action_dataEntryFragment_to_characterFragment"
             app:destination="@id/characterFragment" >
         </action>
+    </fragment>
+    <fragment
+        android:id="@+id/levelUpFragment"
+        android:name="com.mscarla2.ghostfinder.fragments.LevelUpFragment"
+        android:label="fragment_level_up"
+        tools:layout="@layout/fragment_level_up" >
+        <action
+            android:id="@+id/action_levelUpFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+        <argument
+            android:name="player"
+            app:argType="string[]" />
     </fragment>
 </navigation>
