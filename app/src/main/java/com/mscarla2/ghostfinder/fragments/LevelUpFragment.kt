@@ -1,24 +1,18 @@
 package com.mscarla2.ghostfinder.fragments
 
-import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.mscarla2.ghostfinder.R
-import com.mscarla2.ghostfinder.database.Player
-import com.mscarla2.ghostfinder.databinding.FragmentDataEntryBinding
 import com.mscarla2.ghostfinder.databinding.FragmentLevelUpBinding
 import com.mscarla2.ghostfinder.ui.MainViewModel
 
-class LevelUpFragment : Fragment() {
+class LevelUpFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     private val sharedViewModel: MainViewModel by activityViewModels()
     private var binding: FragmentLevelUpBinding? = null
@@ -28,6 +22,16 @@ class LevelUpFragment : Fragment() {
     private var defNum: Int? = null
     private var HP: Int = 0
     private var player: Array<String>? = null
+    private var color: String = ""
+    private var textColor: String = ""
+    private var language: String = ""
+    private val prefs: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(activity)
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,7 +72,6 @@ class LevelUpFragment : Fragment() {
             agiNum = player!![5].toInt()
             defNum = player!![6].toInt()
 
-            val inHP = HP
             val inPowNum =powNum
             val inAgiNum =agiNum
             val inDefNum =defNum
@@ -153,6 +156,10 @@ class LevelUpFragment : Fragment() {
         super.onDestroyView()
         binding = null
     }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+    }
     fun insufficientSkillPoint() {
         val msg = resources.getString(R.string.insufficient_skillpoint)
         val builder = AlertDialog.Builder(context)
@@ -173,9 +180,11 @@ class LevelUpFragment : Fragment() {
             setTitle("Alert")
             setMessage(msg)
             setIcon(R.drawable.ic_baseline_notifications_active_24)
-            //TODO: Change to strings in R id
             setPositiveButton(R.string.ok, null)
             show()
         }
+    }
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+
     }
 }

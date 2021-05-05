@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Ghost Finder</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="player_delete_alert"> Do you wish to delete this player?</string>
     <string name="player_added_alert"> Player %s has been added</string>
@@ -21,13 +20,34 @@
     <string name="flee">Flee</string>
     <string name="name">Name: </string>
     <string name="health">Health: </string>
-    <string name="pow">POW: </string>
-    <string name="agi">AGI: </string>
-    <string name="def">DEF: </string>
+    <string name="pow" translatable="false">POW: </string>
+    <string name="agi" translatable="false">AGI: </string>
+    <string name="def" translatable="false">DEF: </string>
     <string name="upgrade_your_stats">Upgrade your stats!</string>
     <string name="back">Back</string>
     <string name="game_over">GAME OVER</string>
     <string name="press_back_to_menu_to_restart_the_game">Press back to menu to restart the game</string>
     <string name="level_up">Level Up!</string>
     <string name="warning_player_will_be_deleted">Warning: Player will be deleted!</string>
+    <string name="info">Info</string>
+    <string name="check_out_the_artist">Check out the artist:</string>
+    <string name="version">Version</string>
+    <string name="just_kill_ghosts_that_s_it_good_luck">Just kill ghosts. That\'s it! Good luck :)</string>
+    <string name="how_to_play_ghost_finder">How to play Ghost Finder!</string>
+    <string name="slay_the_ghosts_of_the_night">Slay the ghosts of the night!</string>
+    <string name="ghosts_left">Ghosts left:</string>
+    <string name="white">White</string>
+    <string name="change_color">Change color:</string>
+    <string name="purple">Purple</string>
+    <string name="black">Black</string>
+    <string name="red">Red</string>
+    <string name="change_text_color">Change text color:</string>
+    <string name="comic_sans" translatable="false">Comic Sans</string>
+    <string name="times_new_roman" translatable="false">Times New Roman</string>
+    <string name="change_language">Change language:</string>
+    <string name="french">French</string>
+    <string name="orange">Orange</string>
+    <string name="english">English</string>
+    <string name="select_player_to_delete">Select player to delete!</string>
+    <string name="select_player_to_play">Select player to play!</string>
 </resources>

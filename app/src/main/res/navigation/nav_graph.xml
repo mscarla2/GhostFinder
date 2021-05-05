@@ -12,14 +12,20 @@
         tools:layout="@layout/main_fragment" >
         <action
             android:id="@+id/action_mainFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/fragment_fade_enter" />
         <action
             android:id="@+id/action_mainFragment_to_infoFragment"
-            app:destination="@id/infoFragment" />
+            app:destination="@id/infoFragment"
+            app:enterAnim="@anim/fragment_fade_enter" />
         <action
             android:id="@+id/action_mainFragment_to_characterFragment"
-            app:destination="@id/characterFragment" >
-        </action>
+            app:destination="@id/characterFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"></action>
+        <action
+            android:id="@+id/action_mainFragment_to_artistFragment"
+            app:destination="@id/artistFragment"
+            app:enterAnim="@anim/fragment_fade_enter" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -29,9 +35,6 @@
         <action
             android:id="@+id/action_settingsFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
-        <action
-            android:id="@+id/action_settingsFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
@@ -40,7 +43,9 @@
         tools:layout="@layout/fragment_info" >
         <action
             android:id="@+id/action_infoFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/characterFragment"
@@ -49,13 +54,19 @@
         tools:layout="@layout/fragment_character" >
         <action
             android:id="@+id/action_characterFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_characterFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
+            app:destination="@id/gameFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
         <action
             android:id="@+id/action_characterFragment_to_dataEntryFragment"
-            app:destination="@id/dataEntryFragment" />
+            app:destination="@id/dataEntryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
         <argument
             android:name="playedPlayer"
             app:argType="string[]" />
@@ -65,18 +76,18 @@
         android:name="com.mscarla2.ghostfinder.fragments.GameFragment"
         android:label="fragment_game"
         tools:layout="@layout/fragment_game" >
-        <action
-            android:id="@+id/action_gameFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
         <argument android:name="player"
             app:argType="string[]" />
         <action
             android:id="@+id/action_gameFragment_to_characterFragment"
-            app:destination="@id/characterFragment" >
-        </action>
+            app:destination="@id/characterFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"></action>
         <action
             android:id="@+id/action_gameFragment_to_levelUpFragment"
-            app:destination="@id/levelUpFragment" />
+            app:destination="@id/levelUpFragment"
+            app:enterAnim="@android:anim/slide_out_right"
+            app:exitAnim="@android:anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/dataEntryFragment"
@@ -85,8 +96,9 @@
         tools:layout="@layout/fragment_data_entry" >
         <action
             android:id="@+id/action_dataEntryFragment_to_characterFragment"
-            app:destination="@id/characterFragment" >
-        </action>
+            app:destination="@id/characterFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"></action>
     </fragment>
     <fragment
         android:id="@+id/levelUpFragment"
@@ -95,9 +107,22 @@
         tools:layout="@layout/fragment_level_up" >
         <action
             android:id="@+id/action_levelUpFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
+            app:destination="@id/gameFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
         <argument
             android:name="player"
             app:argType="string[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/artistFragment"
+        android:name="com.mscarla2.ghostfinder.fragments.ArtistFragment"
+        android:label="fragment_artist"
+        tools:layout="@layout/fragment_artist" >
+        <action
+            android:id="@+id/action_artistFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
 </navigation>

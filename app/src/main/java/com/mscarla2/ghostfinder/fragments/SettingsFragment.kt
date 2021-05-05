@@ -1,60 +1,103 @@
 package com.mscarla2.ghostfinder.fragments
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.mscarla2.ghostfinder.R
+import com.mscarla2.ghostfinder.databinding.FragmentSettingsBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class SettingsFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeListener {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SettingsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SettingsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var binding: FragmentSettingsBinding? = null
+    private var color: String = ""
+    private var textColor: String = ""
+    private var language: String = ""
+    private val prefs: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(activity)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        setHasOptionsMenu(true)
+        prefs.registerOnSharedPreferenceChangeListener(this)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        val settingsFragmentBinding = FragmentSettingsBinding.inflate(inflater, container, false)
+        binding = settingsFragmentBinding
+        binding?.apply {
+            saveSettingsButton.setOnClickListener {
+
+                languageRadioGroup.setOnCheckedChangeListener { _, id ->
+                    language = when (id) {
+                        R.id.english_radio_button -> "en"
+                        R.id.french_radio_button -> "fr"
+                        else -> null.toString()
+                    }
+                }
+                colorRadioGroup.setOnCheckedChangeListener { _, id ->
+                    color = when (id) {
+                        R.id.blue_radio_button -> "Blue"
+                        R.id.red_radio_button -> "Red"
+                        R.id.purple_radio_button -> "Purple"
+                        R.id.white_radio_button -> "White"
+                        else -> null.toString()
+                    }
+                }
+                fontRadioGroup.setOnCheckedChangeListener { _, id ->
+                    textColor = when (id) {
+                        R.id.redtext_radio_button -> "Red"
+                        R.id.blacktext_radio_button -> "Black"
+                        else -> null.toString()
+                    }
+                }
+                with(prefs.edit()) {
+                    putString("BACKGROUND_COLOR", color)
+                    putString("TEXT_COLOR", textColor)
+                    putString("LANGUAGE_SELECTION", language)
+                    apply()
+                }
+                findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
+            }
+        }
+        return settingsFragmentBinding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SettingsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SettingsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding?.apply {
+
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+        prefs.unregisterOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        when (key) {
+            "BACKGROUND_COLOR", "TEXT_COLOR", "LANGUAGE_SELECTION" -> {
+                prefs.apply {
+                    color = getString("BACKGROUND_COLOR", "White").toString()
+                    textColor = getString("TEXT_COLOR", "Black").toString()
+                    language = getString("LANGUAGE_SELECTION", "en").toString()
+                    context?.toast("$color $textColor")
                 }
             }
+        }
     }
 }

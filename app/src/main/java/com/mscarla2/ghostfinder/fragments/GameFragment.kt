@@ -5,12 +5,12 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.AlertDialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
@@ -29,7 +29,7 @@ import java.util.*
 import kotlin.concurrent.schedule
 import kotlin.math.round
 
-class GameFragment : Fragment() {
+class GameFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeListener {
     private val sharedViewModel: MainViewModel by activityViewModels()
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
@@ -48,8 +48,20 @@ class GameFragment : Fragment() {
     private var player_dmg: Int = 0
     private var ghost_killed: Int = 3
     private var dead: Boolean = false
+
+    private var color: String = ""
+    private var textColor: String = ""
+    private var language: String = ""
+    private val prefs: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(activity)
+    }
     private var sword_dmg = mapOf("wood_sword" to 1, "stone_sword" to 2, "diamond_sword" to 3)
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         _binding = FragmentGameBinding.inflate(inflater, container, false)
@@ -62,6 +74,7 @@ class GameFragment : Fragment() {
             gameOverText.isVisible = false
             gameOverWarningText.isVisible = false
             ghostDeathText.isVisible = false
+            ghostLeftText.text = ghost_killed.toString()
             backMenuButton.setOnClickListener {
 
                 if(player != null){
@@ -89,9 +102,6 @@ class GameFragment : Fragment() {
                     findNavController().navigate(R.id.action_gameFragment_to_characterFragment)
                 }
             }
-            backSettingsButton.setOnClickListener {
-                findNavController().navigate(R.id.action_gameFragment_to_settingsFragment)
-            }
             attackButton.setOnClickListener {
                 if(_binding != null){
                     playerAttack()
@@ -109,6 +119,7 @@ class GameFragment : Fragment() {
                         levelUpButton.isEnabled = true
                         levelUpButton.isVisible = true
                         ghost_killed = 3
+                        ghostLeftText.text = ghost_killed.toString()
                     }
                 }
                 else{
@@ -152,7 +163,10 @@ class GameFragment : Fragment() {
         }
         return binding.root
     }
-
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -177,9 +191,6 @@ class GameFragment : Fragment() {
 
             ghostGen()
             calcPlayerDmg()
-//            binding.apply{
-//
-//            }
         }
     }
     private fun playerAttack(){
@@ -242,6 +253,7 @@ class GameFragment : Fragment() {
             override fun onAnimationRepeat(animation: Animator?) {}
             override fun onAnimationEnd(animation: Animator?) {
                 binding.ghostDeathText.isVisible = false
+                binding.ghostLeftText.text = ghost_killed.toString()
             }
         })
         val animationReturn = ObjectAnimator.ofFloat(binding.gameHealthGainText, "translationY", -20f, 0f)
@@ -255,7 +267,14 @@ class GameFragment : Fragment() {
         val animationGo = ObjectAnimator.ofFloat(binding.playerImageview, "translationX", 0f, -100f)
 
         animationGo.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator?) {}
+            override fun onAnimationStart(animation: Animator?) {
+                binding.apply{
+                    attackButton.isEnabled = false
+                    fleeButton.isEnabled = false
+                    backMenuButton.isEnabled = false
+
+                }
+            }
             override fun onAnimationCancel(animation: Animator?) {}
             override fun onAnimationRepeat(animation: Animator?) {}
             override fun onAnimationEnd(animation: Animator?) {
@@ -291,6 +310,13 @@ class GameFragment : Fragment() {
             override fun onAnimationEnd(animation: Animator?) {
                 binding.playerImageview.setImageResource(R.drawable.player_ready)
                 binding.ghostHealthText.text = enemy_hp.toString()
+
+                binding.apply{
+                    attackButton.isEnabled = true
+                    fleeButton.isEnabled = true
+                    backMenuButton.isEnabled = true
+
+                }
             }
         })
 
@@ -352,5 +378,8 @@ class GameFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
     }
 }

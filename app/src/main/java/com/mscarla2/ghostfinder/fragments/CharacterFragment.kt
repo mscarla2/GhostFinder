@@ -2,12 +2,13 @@ package com.mscarla2.ghostfinder.fragments
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import android.widget.Toast.makeText
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -17,15 +18,24 @@ import com.mscarla2.ghostfinder.database.Player
 import com.mscarla2.ghostfinder.databinding.FragmentCharacterBinding
 import com.mscarla2.ghostfinder.ui.CharacterAdapter
 import com.mscarla2.ghostfinder.ui.MainViewModel
-import java.lang.Long.MAX_VALUE
 
 
-class CharacterFragment : Fragment() {
+class CharacterFragment : Fragment() , SharedPreferences.OnSharedPreferenceChangeListener{
     private val sharedViewModel: MainViewModel by activityViewModels()
     private var binding: FragmentCharacterBinding? = null
     private val playerAdapter = CharacterAdapter()
     private var selectedPlayer : Player? = null
     private var prevPlayer: Player? = Player()
+    private var color: String = ""
+    private var textColor: String = ""
+    private var language: String = ""
+    private val prefs: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(activity)
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         val bindingMain = FragmentCharacterBinding.inflate(inflater, container, false)
@@ -37,8 +47,8 @@ class CharacterFragment : Fragment() {
             deletePlayerButton.setOnClickListener {
                 selectedPlayer = playerAdapter.getSelectedPlayer()
                 if(selectedPlayer == null){
-                    //TODO: Make R id
-                    context?.toast("Select a player to delete")
+
+                    context?.toast(resources.getString(R.string.select_player_to_delete))
                 }
                 else{
                     playerDeletedAlert(selectedPlayer!!)
@@ -52,8 +62,7 @@ class CharacterFragment : Fragment() {
                 selectedPlayer = playerAdapter.getSelectedPlayer()
 
                 if (selectedPlayer == null){
-                    //TODO: Make R id
-                    context?.toast("Select a player to play")
+                    context?.toast(resources.getString(R.string.select_player_to_play))
                 }
                 else {
                     var player: Array<String> = arrayOf(
@@ -110,6 +119,10 @@ class CharacterFragment : Fragment() {
         super.onDestroyView()
         binding = null
     }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+    }
 
     fun playerDeletedAlert(player: Player) {
         val msg = resources.getString(R.string.player_delete_alert)
@@ -129,7 +142,9 @@ class CharacterFragment : Fragment() {
             show()
         }
     }
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
 
+    }
 }
 
 fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT){
