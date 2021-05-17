@@ -1,6 +1,6 @@
 # GhostFinder
 
-###*Version 0.01*
+*Version 0.01*
 
 This application was made within about 7-8 hours for a project within my Mobile App Dev class.
 
